@@ -1,5 +1,10 @@
 # Ghost Escape — Juego para nand2tetris (Jack)
 
+**Integrantes del equipo:**
+- Juan Antonio Buendía
+- Mateo Gómez
+- Santiago Salazar
+
 Juego de escape en el que el jugador no ve el mapa y debe guiarse por un
 radar que consume energía para esquivar fantasmas y llegar a la salida.
 
