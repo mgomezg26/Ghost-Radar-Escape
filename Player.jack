@@ -1,0 +1,46 @@
+// File: Player.jack
+// Represents the player in the Ghost Escape game.
+// The player has a position (x, y) on a logical grid of CELLSxCELLS cells.
+
+class Player {
+
+    field int x;       // column (0 .. cells-1)
+    field int y;       // row    (0 .. cells-1)
+    field int cells;   // grid size (cached from GhostGame)
+
+    /** Creates a new player at (startX, startY) on a grid with `cells` cells per side. */
+    constructor Player new(int startX, int startY, int gridCells) {
+        let x = startX;
+        let y = startY;
+        let cells = gridCells;
+        return this;
+    }
+
+    /** Frees the player. */
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    /** Returns the x position. */
+    method int getX() { return x; }
+
+    /** Returns the y position. */
+    method int getY() { return y; }
+
+    /** Moves the player by (dx, dy) clamped to the grid. */
+    method void move(int dx, int dy) {
+        var int nx, ny;
+        let nx = x + dx;
+        let ny = y + dy;
+
+        if (nx < 0) { let nx = 0; }
+        if (ny < 0) { let ny = 0; }
+        if (~(nx < cells)) { let nx = cells - 1; }
+        if (~(ny < cells)) { let ny = cells - 1; }
+
+        let x = nx;
+        let y = ny;
+        return;
+    }
+}

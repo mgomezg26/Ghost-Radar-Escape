@@ -1,0 +1,15 @@
+// File: Main.jack
+// Entry point for the Ghost Escape game.
+// Compatible with the nand2tetris Jack compiler and VM emulator.
+
+class Main {
+
+    /** Starts the game. */
+    function void main() {
+        var GhostGame game;
+        let game = GhostGame.new();
+        do game.run();
+        do game.dispose();
+        return;
+    }
+}
