@@ -52,7 +52,7 @@ Cualquier tecla en la pantalla de intro o de fin la cierra.
 - Rejilla de **8×8**. Empiezas en la esquina inferior izquierda. La salida
   está en la esquina superior derecha (marcada con una **X** cuando el
   radar la detecta).
-- La pantalla está en negro: **solo ves tu propia casilla**.
+- La pantalla está en blanco: **solo ves tu propia casilla**.
 - Pulsa **Espacio** para hacer un barrido del radar. Se iluminan
   brevemente las casillas dentro del rango (3 casillas, distancia Manhattan)
   y aparecen como cuadrados rellenos los fantasmas que estén ahí.
