@@ -1,6 +1,6 @@
 // File: Main.jack
-// Entry point for the Ghost Escape game.
-// Compatible with the nand2tetris Jack compiler and VM emulator.
+// Punto de entrada al the Ghost Escape game.
+// Compatible con nand2tetris Jack compiler y VM emulator.
 
 class Main {
 
