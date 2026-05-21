@@ -166,9 +166,6 @@ class GhostGame {
         return;
     }
 
-    // ---------------------------------------------------------------
-    // Drawing helpers
-    // ---------------------------------------------------------------
 
     /** Draws a border around the play area. */
     method void drawFrame() {
@@ -231,13 +228,7 @@ class GhostGame {
         return;
     }
 
-    /**
-     * Draws the radar sweep:
-     *   - All cells within `range` (Manhattan distance) get an outline,
-     *     so the player can see which area is being scanned.
-     *   - Ghosts within range are drawn as filled squares.
-     *   - The exit within range is drawn as a hollow square with an X.
-     */
+
     method void drawRadarSweep(int range) {
         var int cx, cy, px, py, dx, dy, d;
         let px = player.getX();
