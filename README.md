@@ -71,8 +71,9 @@ Cualquier tecla en la pantalla de intro o de fin la cierra.
 - No se usan librerías externas, solo las estándar de Jack OS
   (`Screen`, `Output`, `Keyboard`, `Sys`, `Memory`).
 
-## Video de youtube
+## Video explicativo
 
 https://www.youtube.com/watch?v=r5a98TC-1Fw
+
 
 ¡Suerte escapando!
