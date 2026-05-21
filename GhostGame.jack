@@ -1,20 +1,21 @@
 // File: GhostGame.jack
-// Main game controller for Ghost Escape.
+// Controlador principal del juego Ghost Escape.
 //
-// Rules:
-//   - The player navigates an 8x8 grid with the arrow keys.
-//   - The map is hidden. The player only sees their own square.
-//   - Pressing SPACE activates the radar (consumes energy) and briefly
-//     reveals ghosts and the exit that are within range.
-//   - 3 ghosts move pseudo-randomly each turn. If one steps onto the
-//     player's cell, the player loses.
-//   - Reach the exit cell to win.
-//   - Press Q at any time to quit.
+// Reglas:
+//   - El jugador navega una cuadrícula de 8x8 con las teclas de flecha.
+//   - El mapa está oculto. El jugador solo ve su propia casilla.
+//   - Presionar ESPACIO activa el radar (consume energía) y revela
+//     brevemente los fantasmas y la salida que estén dentro del rango.
+//   - 3 fantasmas se mueven de forma pseudoaleatoria cada turno. Si uno
+//     cae en la casilla del jugador, el jugador pierde.
+//   - Llegar a la casilla de salida equivale a ganar.
+//   - Presionar Q en cualquier momento cierra el juego.
 //
-// Screen layout (Hack screen is 512x256):
-//   - Play area: 192x192 (8x8 cells of 24x24 px) centered vertically
-//     starting at x = 32, y = 32.
-//   - HUD: text to the right of the play area showing energy and status.
+// Disposición de pantalla (pantalla Hack: 512x256):
+//   - Área de juego: 192x192 (cuadrícula 8x8 de celdas de 24x24 px)
+//     centrada verticalmente, comenzando en x = 32, y = 32.
+//   - HUD: texto a la derecha del área de juego que muestra
+//     la energía y el estado actual.
 
 class GhostGame {
 
@@ -24,20 +25,20 @@ class GhostGame {
     field Ghost g3;
     field Radar radar;
 
-    field int exitX;       // exit column
-    field int exitY;       // exit row
+    field int exitX;       
+    field int exitY;      
 
-    field int cells;       // grid size (8)
-    field int cellPx;      // pixels per cell (24)
-    field int originX;     // top-left x of play area in pixels
-    field int originY;     // top-left y of play area in pixels
+    field int cells;       
+    field int cellPx;      
+    field int originX;     
+    field int originY;     
 
-    field int seed;        // global pseudo-random state for placement
+    field int seed;        // semilla pseudo-random global
 
     field boolean gameOver;
     field boolean playerWon;
 
-    /** Builds a new game. */
+    /** Construlle juego nuevo. */
     constructor GhostGame new() {
         let cells = 8;
         let cellPx = 24;
@@ -45,18 +46,18 @@ class GhostGame {
         let originY = 32;
         let seed = 12345;
 
-        // Place exit at top-right corner, player at bottom-left corner.
+        // Pone la salida en la esquina arriba a la derecha, al jugador abajo a la izquierda.
         let exitX = cells - 1;
         let exitY = 0;
 
         let player = Player.new(0, cells - 1, cells);
 
-        // Spread ghosts around the middle of the map with different seeds.
+        // Ghost regados por el mapa con semillas diferentes.
         let g1 = Ghost.new(3, 3, cells, 17);
         let g2 = Ghost.new(5, 4, cells, 2731);
         let g3 = Ghost.new(2, 5, cells, 9001);
 
-        // Radar: 10 energy total, 1 per scan, range = 3 cells.
+        // Radar: 10 energía total, 1 por scan, rango = 3 celdas.
         let radar = Radar.new(10, 1, 3);
 
         let gameOver = false;
@@ -64,7 +65,6 @@ class GhostGame {
         return this;
     }
 
-    /** Frees the game and its components. */
     method void dispose() {
         do player.dispose();
         do g1.dispose();
@@ -104,16 +104,13 @@ class GhostGame {
             if (key = 81)  { let gameOver = true; let playerWon = false; } // Q
             if (key = 113) { let gameOver = true; let playerWon = false; } // q
 
-            // Wait until the key is released to avoid repeats.
             while (~(Keyboard.keyPressed() = 0)) { }
 
             if (moved & (~gameOver)) {
-                // Player moved this turn -> ghosts step too.
                 do g1.step();
                 do g2.step();
                 do g3.step();
 
-                // Redraw the current view.
                 do clearPlay();
                 do drawPlayer();
                 do drawHUD();
@@ -137,7 +134,6 @@ class GhostGame {
         return;
     }
 
-    /** True if any ghost is on the player's cell. */
     method boolean ghostHitsPlayer() {
         var int px, py;
         let px = player.getX();
