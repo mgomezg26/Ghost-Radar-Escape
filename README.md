@@ -54,7 +54,7 @@ Cualquier tecla en la pantalla de intro o de fin la cierra.
   radar la detecta).
 - La pantalla está en blanco: **solo ves tu propia casilla**.
 - Pulsa **Espacio** para hacer un barrido del radar. Se iluminan
-  brevemente las casillas dentro del rango (3 casillas, distancia Manhattan)
+  brevemente las casillas dentro del rango (3 casillas)
   y aparecen como cuadrados rellenos los fantasmas que estén ahí.
 - Cada barrido consume **1 energía**. Empiezas con **10**.
 - Los **3 fantasmas** se mueven aleatoriamente cada vez que tú te mueves.
