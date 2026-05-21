@@ -1,6 +1,6 @@
 // File: Player.jack
-// Represents the player in the Ghost Escape game.
-// The player has a position (x, y) on a logical grid of CELLSxCELLS cells.
+// Representa al jugador en the Ghost Escape game.
+// El jugador tiene una pocisión (x, y) en una red logica de CELLSxCELLS.
 
 class Player {
 
@@ -8,7 +8,7 @@ class Player {
     field int y;       // row    (0 .. cells-1)
     field int cells;   // grid size (cached from GhostGame)
 
-    /** Creates a new player at (startX, startY) on a grid with `cells` cells per side. */
+    /** Crea un jugador nuevo (startX, startY). */
     constructor Player new(int startX, int startY, int gridCells) {
         let x = startX;
         let y = startY;
