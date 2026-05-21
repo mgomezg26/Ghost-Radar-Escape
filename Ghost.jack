@@ -1,7 +1,3 @@
-// File: Ghost.jack
-// Represents a single ghost in the Ghost Escape game.
-// Ghosts move pseudo-randomly each tick using a simple LCG seeded
-// from their position and a tick counter.
 
 class Ghost {
 
@@ -10,7 +6,7 @@ class Ghost {
     field int cells;   // grid size
     field int seed;    // pseudo-random state local to this ghost
 
-    /** Creates a new ghost at (startX, startY). */
+    /** Crea nuevo ghost en (startX, startY). */
     constructor Ghost new(int startX, int startY, int gridCells, int initSeed) {
         let x = startX;
         let y = startY;
@@ -28,10 +24,8 @@ class Ghost {
     method int getX() { return x; }
     method int getY() { return y; }
 
-    /** Advances the internal pseudo-random state and returns it. */
+
     method int nextRand() {
-        // Simple LCG that stays inside 16-bit signed range.
-        // Mix in current position so neighboring ghosts don't desync trivially.
         if (seed < 0) { let seed = -seed; }
         let seed = seed + x + (y * 7);
         let seed = seed - ((seed / 1000) * 1000);  // seed in 0..999
@@ -39,7 +33,7 @@ class Ghost {
         return seed;
     }
 
-    /** Moves the ghost one step in a random direction (up/down/left/right/stay). */
+    /** Mueve el fantasma random en cualquier dirección (up/down/left/right/stay). */
     method void step() {
         var int r, dx, dy, nx, ny;
         let r = nextRand();
@@ -67,7 +61,7 @@ class Ghost {
         return;
     }
 
-    /** Returns true if the ghost is on the same cell as (px, py). */
+    /** Retorna True si el ghost esta en la misma celda que (px, py). */
     method boolean touches(int px, int py) {
         return ((x = px) & (y = py));
     }
