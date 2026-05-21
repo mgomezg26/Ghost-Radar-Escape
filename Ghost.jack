@@ -1,0 +1,74 @@
+// File: Ghost.jack
+// Represents a single ghost in the Ghost Escape game.
+// Ghosts move pseudo-randomly each tick using a simple LCG seeded
+// from their position and a tick counter.
+
+class Ghost {
+
+    field int x;       // column (0 .. cells-1)
+    field int y;       // row    (0 .. cells-1)
+    field int cells;   // grid size
+    field int seed;    // pseudo-random state local to this ghost
+
+    /** Creates a new ghost at (startX, startY). */
+    constructor Ghost new(int startX, int startY, int gridCells, int initSeed) {
+        let x = startX;
+        let y = startY;
+        let cells = gridCells;
+        let seed = initSeed;
+        return this;
+    }
+
+    /** Frees the ghost. */
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method int getX() { return x; }
+    method int getY() { return y; }
+
+    /** Advances the internal pseudo-random state and returns it. */
+    method int nextRand() {
+        // Simple LCG that stays inside 16-bit signed range.
+        // Mix in current position so neighboring ghosts don't desync trivially.
+        if (seed < 0) { let seed = -seed; }
+        let seed = seed + x + (y * 7);
+        let seed = seed - ((seed / 1000) * 1000);  // seed in 0..999
+        let seed = (seed * 13) + 7;                // max 999*13+7 = 12994, safe
+        return seed;
+    }
+
+    /** Moves the ghost one step in a random direction (up/down/left/right/stay). */
+    method void step() {
+        var int r, dx, dy, nx, ny;
+        let r = nextRand();
+        let r = r - ((r / 5) * 5);  // r in 0..4
+
+        let dx = 0;
+        let dy = 0;
+
+        if (r = 0) { let dy = -1; }
+        if (r = 1) { let dy = 1; }
+        if (r = 2) { let dx = -1; }
+        if (r = 3) { let dx = 1; }
+        // if r = 4: stay still
+
+        let nx = x + dx;
+        let ny = y + dy;
+
+        if (nx < 0) { let nx = 0; }
+        if (ny < 0) { let ny = 0; }
+        if (~(nx < cells)) { let nx = cells - 1; }
+        if (~(ny < cells)) { let ny = cells - 1; }
+
+        let x = nx;
+        let y = ny;
+        return;
+    }
+
+    /** Returns true if the ghost is on the same cell as (px, py). */
+    method boolean touches(int px, int py) {
+        return ((x = px) & (y = py));
+    }
+}
