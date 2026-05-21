@@ -1,6 +1,5 @@
 // File: Radar.jack
-// Manages radar energy. Drawing the radar sweep itself is done by GhostGame,
-// since it needs access to ghost positions and the exit.
+// Maneja la energia del radar. El trazado del barrido del radar lo realiza GhostGame, ya que necesita acceso a las posiciones fantasma y a la salida.
 
 class Radar {
 
@@ -9,7 +8,7 @@ class Radar {
     field int cost;       // energy cost per use
     field int range;      // detection range (in cells)
 
-    /** Creates a radar with the given starting energy, cost per use, and detection range. */
+    /** Crea un radar con la energía inicial dada, costo por uso, y rango de detección */
     constructor Radar new(int startEnergy, int costPerUse, int detectRange) {
         let energy = startEnergy;
         let maxEnergy = startEnergy;
@@ -28,12 +27,12 @@ class Radar {
     method int getMaxEnergy() { return maxEnergy; }
     method int getRange() { return range; }
 
-    /** Returns true if there is enough energy to perform a sweep. */
+    /** Retorna True si hay suficiente energía para hacer el barrido. */
     method boolean canScan() {
         return ~(energy < cost);
     }
 
-    /** Consumes energy for one sweep. Returns true if the sweep happened. */
+    /** Consume energía por un barrido. Retorna True si el barrido se hizo. */
     method boolean scan() {
         if (energy < cost) { return false; }
         let energy = energy - cost;
